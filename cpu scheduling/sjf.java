@@ -20,6 +20,7 @@ public class sjf {
         }
     }
 
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
          
@@ -55,7 +56,7 @@ public class sjf {
             System.out.println("P" + process[i][0] + "\t" + process[i][1] + "\t" + process[i][2] + "\t" + process[i][3]);
         }
 
-
+        s.close();
 
     }     
 }

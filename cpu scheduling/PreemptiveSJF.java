@@ -82,5 +82,6 @@ public class PreemptiveSJF {
 
         System.out.println("Average Waiting Time: " + (double) totalWt / n);
         System.out.println("Average Turnaround Time: " + (double) totalTat / n);
+        s.close();
     }
 }
