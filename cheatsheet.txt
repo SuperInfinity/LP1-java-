@@ -1,0 +1,3 @@
+1. fcfs --->
+    wt(i) = wt(i-1) + bt(i-1)
+    tat(i) = wt(i) + bt(i)

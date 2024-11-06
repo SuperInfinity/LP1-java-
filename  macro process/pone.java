@@ -14,7 +14,7 @@ public class pone {
         boolean processingMacroDef = false, prcessMacroName = false;
 
         while ((s = input.readLine()) != null) {
-            String arr_tokens[] = tokenizeString(s, " ")
+            String arr_tokens[] = tokenizeString(s, " ");
         }
     }
 
