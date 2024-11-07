@@ -1,0 +1,4 @@
+1) javac ArithmeticOperations.java
+2) javac -h . ArithmeticOperations
+3) gcc -I"paste the path here till 'inlude' " -I"Again place the path here for '/linux' folder " -shared -o libArithmeticOperations.so ArithmeticOperations.c
+4) java -Djava.library.path=. ArithmeticOperations

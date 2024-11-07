@@ -1,6 +1,5 @@
+package test;
 import java.util.*;
-import java.util.prefs.PreferenceChangeEvent;
-
 
 
 public class test {
@@ -9,9 +8,25 @@ public class test {
         // obj.fcfs();
 
         Sjf o = new Sjf();
-        o.sjfNP();
+        o.sjfP();
     }
     
+}
+
+class Process {
+    int at, bt, rm, tat, wt, ct;
+    String name;
+
+    public Process(String name, int at, int bt) {
+        this.at = at;
+        this.bt = bt;
+        this.rm = bt;
+        this.tat = 0;
+        this.wt = 0;
+        this.ct = 0;
+        this.name = name;
+    }
+
 }
 
 
@@ -60,22 +75,6 @@ class Fcfs {
         scanner.close();
     }
     
-}
-
-class Process {
-    int at, bt, rm, tat, wt, ct;
-    String name;
-
-    public Process(String name, int at, int bt) {
-        this.at = at;
-        this.bt = bt;
-        this.rm = bt;
-        this.tat = 0;
-        this.wt = 0;
-        this.ct = 0;
-        this.name = name;
-    }
-
 }
 
 
@@ -162,26 +161,94 @@ class Sjf {
 
             readyQ.offer(new Process(name, at, bt));
         }
-
+        
         Collections.sort(readyQ, (Process p1, Process p2) -> Integer.compare(p1.at, p2.at));
         
         LinkedList<Process> waiting = new LinkedList<>();
-        int completed = 0, time = 0, curr = 0;
-        boolean flag = false;
+        int time = 0;
+
+        waiting.offer(readyQ.peek());
 
 
-        while (completed < n) {
+        while (!waiting.isEmpty()) {
+            time++;
+
+            Process p = waiting.peek();
+            p.rm -= 1;
+
+            for (Process i : waiting) {
+                if (i != p) { // Increment waiting time only for processes not currently executing
+                    i.wt++;
+                }
+            }
+
             for (Process i: readyQ) {
-                if (i.at <= time) {
+                if (i.at <= time && !waiting.contains(i) && i.rm > 0) {
                     waiting.offer(i);
                 }
             }
-            Collections.sort(waiting, (Process p1, Process p2) -> Integer.compare(p1.))
+
+            if (p.rm == 0) {
+                p.ct = time;
+                p.tat = p.wt + p.bt;
+                waiting.poll();
+            }
+
+            Collections.sort(waiting, (Process p1, Process p2) -> Integer.compare(p1.rm, p2.rm));
+        }
+
+        System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |\n", "Process", "AT", "BT", "WT", "TAT", "CT");
+
+        for (Process i:  readyQ) {
+            System.out.printf("| %-10s | %-10d | %-10d | %-10d | %-10d | %-10d |\n", i.name, i.at, i.bt, i.wt, i.tat, i.ct);
         }
 
 
         scanner.close(); 
     }
 
+}
+
+class RR {
+    public void rr() {
+        int n, qunatum;
+        Scanner scanner = new Scanner(System.in);
+
+        LinkedList<Process> readyQ = new LinkedList<>();
+        
+        System.out.println("Enter no of processes: ");
+        n = scanner.nextInt();
+
+        System.out.println("Emter time Q: ");
+        qunatum = scanner.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            int at, bt;
+            String name;
+
+            System.out.println("Enter name: ");
+            name = scanner.next();
+
+            System.out.println("Enter AT: ");
+            at = scanner.nextInt();
+
+            System.out.println("Enter BT: ");
+            bt = scanner.nextInt();
+
+            readyQ.offer(new Process(name, at, bt));
+        }
+
+        Collections.sort(readyQ, (Process p1, Process p2) -> Integer.compare(p1.at, p2.at));
+
+        int time = 0, curr = 0;
+
+        LinkedList<Process> waiting = new LinkedList<>();
+
+        waiting.offer(readyQ.peek());
+
+
+        scanner.close();
+    }
+    
 }
 

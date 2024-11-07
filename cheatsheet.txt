@@ -1,3 +1,13 @@
 1. fcfs --->
     wt(i) = wt(i-1) + bt(i-1)
     tat(i) = wt(i) + bt(i)
+
+2. lru -->
+    hashmap
+
+3. fits -->
+    class Process 
+
+4. iots -->
+    RPi.GPIO.BCM = GPIO pins
+    requests.post()
